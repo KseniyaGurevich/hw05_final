@@ -41,13 +41,15 @@ def profile(request, username):
     paginator = Paginator(posts_list_username, NUMBER_OF_POSTS)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    follow = list(
-        Follow.objects.filter(user=user).values_list('author_id', flat=True)
-    )
-    if profile_user.id in follow:
-        following = True
-    else:
+    if user.is_anonymous:
+        Follow.objects.filter(user=user.is_anonymous).values_list('author_id', flat=True)
         following = False
+    else:
+        if profile_user.id in list(Follow.objects.filter(user=user).values_list('author_id', flat=True)):
+            following = True
+        else:
+            following = False
+
     context = {
         'user': user,
         'following': following,
@@ -99,6 +101,9 @@ def post_create(request):
 @login_required
 def post_edit(request, post_id):
     post = get_object_or_404(Post, id=post_id)
+    if post.author != request.user:
+        return redirect('posts:post_detail', post_id=post_id)
+
     form = PostForm(
         request.POST or None,
         files=request.FILES or None,
@@ -114,6 +119,7 @@ def post_edit(request, post_id):
     context = {
         'is_edit': is_edit,
         'form': form,
+        'post': post,
     }
     return render(request, 'posts/create_post.html', context)
 

@@ -14,6 +14,7 @@
     {% endif %}
   </h1>
   <h3>Всего постов:  {{ posts_count }} </h3>
+  {% if user.is_authenticated %}
   {% if profile_user != user %}
     {% if following %}
     <a
@@ -30,6 +31,7 @@
         Подписаться
       </a>
     {% endif %}
+  {% endif %}
   {% endif %}
 </div>
     {% for post in page_obj %}

@@ -257,3 +257,14 @@ class PostCreateFormTests(TestCase):
             count(),
             0
         )
+    
+    def test_cache_index(self):
+        """Данные сохраняются в кэше"""
+        response_first = self.authorized_client.get(
+            reverse(self.index_url[0])
+        )
+        self.post.delete()
+        response_second = self.authorized_client.get(
+            reverse(self.index_url[0])
+        )
+        self.assertEqual(response_first.content, response_second.content)
