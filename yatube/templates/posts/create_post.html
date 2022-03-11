@@ -1,0 +1,67 @@
+{% extends 'base.html' %} 
+{% load thumbnail %}
+{% block title %}
+  {% if is_edit %}
+    Редактировать запись {{ is_edit }}
+  {% else %}
+    Добавить запись 
+  {% endif %}
+{% endblock %}
+{% block content %} 
+  <div class="row justify-content-center">
+    <div class="col-md-8 p-5">
+      <div class="card">
+        <div class="card-header">       
+          {% if is_edit %}
+            Редактировать запись
+          {% else %}
+            Добавить запись
+          {% endif %}             
+        </div>
+        <div class="card-body">        
+          <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}   
+              <div class="form-group row my-3 p-3">
+                <label for="id_text">
+                    Текст поста                  
+                    <span class="required text-danger" >*</span>                  
+                </label>
+                {% if is_edit %}
+                  <textarea name="text" cols="40" rows="10" class="form-control" required id="id_text">
+                    {{ is_edit }}
+                  </textarea> 
+                {% else %} 
+                  <textarea name="text" cols="40" rows="10" class="form-control" required id="id_text">
+                  </textarea>
+                {% endif %}              
+                <small id="id_text-help" class="form-text text-muted">
+                  Текст нового поста
+                </small>                  
+              </div>           
+              <div class="form-group row my-3 p-3">
+                <label for="id_group">
+                  Группа                 
+                </label>
+                {{ form.group }}
+                <small id="id_group-help" class="form-text text-muted">
+                  Группа, к которой будет относиться пост
+                </small>
+              </div>
+              <p>Картинка</p>
+              <p>{{ form.image }}</p>
+              <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary">
+                  {% if is_edit %}
+                    Сохранить
+                  {% else %}
+                    Добавить запись
+                  {% endif %}
+                </button>
+              </div> 
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

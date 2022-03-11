@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Технологии{% endblock %}
+{% block content %}
+<div class="row">
+  <h3>Инструменты, которые помогли мне в создании этого сайта:</h3>
+  <aside class="col-12 col-md-3">
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">
+        Python
+      </li>
+      <li class="list-group-item">
+        Django
+      </li>
+    </ul>
+  </aside>
+  <article class="col-12 col-md-9">
+    <p align="center"><b>Тут должны быть подробности, но я их придумать не успела.</b></p>
+    <p align="center"><img src="{% static 'img/cat.png' %}"></p>
+  </article>
+</div>
+{% endblock %} 

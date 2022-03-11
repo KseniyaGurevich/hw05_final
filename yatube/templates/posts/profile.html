@@ -1,0 +1,63 @@
+{% extends 'base.html' %} 
+{% load thumbnail %}
+{% block title %}
+Профайл пользователя {{ profile_user.username }}  
+{% endblock %}
+{% block content %} 
+<div class="mb-5">
+  <h1>
+    Все посты пользователя
+    {% if profile_user.get_full_name %}
+      {{ profile_user.get_full_name }}
+    {% else %}
+      {{ profile_user.username }}
+    {% endif %}
+  </h1>
+  <h3>Всего постов:  {{ posts_count }} </h3>
+  {% if profile_user != user %}
+    {% if following %}
+    <a
+      class="btn btn-lg btn-light"
+      href="{% url 'posts:profile_unfollow' profile_user.username %}" role="button"
+    >
+      Отписаться
+    </a>
+    {% else %}
+      <a
+        class="btn btn-lg btn-primary"
+        href="{% url 'posts:profile_follow' profile_user.username %}" role="button"
+      >
+        Подписаться
+      </a>
+    {% endif %}
+  {% endif %}
+</div>
+    {% for post in page_obj %}
+      <article>
+        <ul>
+          <li>
+            {% if profile_user.get_full_name %}
+              Автор: {{ profile_user.get_full_name }}
+            {% else %}
+              Автор: {{ profile_user.username }}
+            {% endif %}
+          </li>
+          <li>
+            Дата публикации: {{ post.pub_date|date:"d E Y" }} 
+          </li>
+        </ul>
+        <p>
+          {% thumbnail post.image "960x339" crop="center" upscale=True as im %}
+            <img class="card-img my-2" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+          {% endthumbnail %}
+          {{ post.text }} 
+        </p>
+        <a href="{% url 'posts:post_detail' post.id %}">Подробная информация</a> 
+      </article>
+      {% if post.group %}        
+        <a href="{% url 'posts:group_list' post.group.slug %}">Все записи группы</a>  
+      {% endif %}      
+      {% if not forloop.last %}<hr>{% endif %}
+      {% endfor %}
+    {% include 'posts/includes/paginator.html' %}  
+{% endblock %}
