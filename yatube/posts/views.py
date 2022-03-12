@@ -42,21 +42,13 @@ def profile(request, username):
     paginator = Paginator(posts_list_username, NUMBER_OF_POSTS)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    if user.is_anonymous:
-        (Follow.objects.
-         filter(user=user.is_anonymous).
-         values_list('author_id', flat=True)
-         )
-        following = False
-    else:
-        if profile_user.id in list(
-                Follow.objects.
-                filter(user=user).
-                values_list('author_id', flat=True)
-        ):
+    if request.user.is_authenticated:
+        if profile_user.following.exists():
             following = True
         else:
             following = False
+    else:
+        following = False
 
     context = {
         'user': user,
