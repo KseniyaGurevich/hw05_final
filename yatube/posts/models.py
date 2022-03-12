@@ -62,6 +62,7 @@ class Comment(CreateModel):
         null=True,
         on_delete=models.SET_NULL,
         related_name='comments',
+        verbose_name='Автор'
     )
     author = models.ForeignKey(
         User,
@@ -78,6 +79,7 @@ class Comment(CreateModel):
 
     class Meta:
         ordering = ['-created']
+        verbose_name_plural = 'Комментарии'
 
 
 class Follow(models.Model):
