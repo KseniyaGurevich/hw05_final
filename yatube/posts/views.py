@@ -1,8 +1,9 @@
-from django.shortcuts import get_object_or_404, render, redirect
-from .models import Post, Group, Follow, User
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
-from .forms import PostForm, CommentForm
+from django.shortcuts import get_object_or_404, redirect, render
+
+from .forms import CommentForm, PostForm
+from .models import Follow, Group, Post, User
 
 NUMBER_OF_POSTS: int = 10
 
@@ -42,10 +43,17 @@ def profile(request, username):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     if user.is_anonymous:
-        Follow.objects.filter(user=user.is_anonymous).values_list('author_id', flat=True)
+        (Follow.objects.
+         filter(user=user.is_anonymous).
+         values_list('author_id', flat=True)
+         )
         following = False
     else:
-        if profile_user.id in list(Follow.objects.filter(user=user).values_list('author_id', flat=True)):
+        if profile_user.id in list(
+                Follow.objects.
+                filter(user=user).
+                values_list('author_id', flat=True)
+        ):
             following = True
         else:
             following = False

@@ -3,11 +3,11 @@
 {% block title %}
   Записи сообщества {{ group.title }}
 {% endblock %}
-{% block content %}     
+{% block content %}
   <h1>{{ group.title }}</h1>
   <p>{{ group.description }}</p>
   {% for post in page_obj %}
-    <article>  
+    <article>
       <ul>
         <li>
           {% if post.author.get_full_name %}

@@ -1,6 +1,7 @@
-from django.test import TestCase, Client
-from django.urls import reverse
 from http import HTTPStatus
+
+from django.test import Client, TestCase
+from django.urls import reverse
 
 
 class AboutURLTests(TestCase):

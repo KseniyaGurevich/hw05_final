@@ -1,9 +1,9 @@
-from posts.models import Post, Group
-from posts.views import NUMBER_OF_POSTS
-from django.test import TestCase, Client
-from django.contrib.auth import get_user_model
-from django.urls import reverse
 from django import forms
+from django.contrib.auth import get_user_model
+from django.test import Client, TestCase
+from django.urls import reverse
+from posts.models import Group, Post
+from posts.views import NUMBER_OF_POSTS
 
 User = get_user_model()
 

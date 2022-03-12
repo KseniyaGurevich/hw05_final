@@ -1,46 +1,46 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
 {% load thumbnail %}
 {% block title %}
   {% if is_edit %}
     Редактировать запись {{ is_edit }}
   {% else %}
-    Добавить запись 
+    Добавить запись
   {% endif %}
 {% endblock %}
-{% block content %} 
+{% block content %}
   <div class="row justify-content-center">
     <div class="col-md-8 p-5">
       <div class="card">
-        <div class="card-header">       
+        <div class="card-header">
           {% if is_edit %}
             Редактировать запись
           {% else %}
             Добавить запись
-          {% endif %}             
+          {% endif %}
         </div>
-        <div class="card-body">        
+        <div class="card-body">
           <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}   
+            {% csrf_token %}
               <div class="form-group row my-3 p-3">
                 <label for="id_text">
-                    Текст поста                  
-                    <span class="required text-danger" >*</span>                  
+                    Текст поста
+                    <span class="required text-danger" >*</span>
                 </label>
                 {% if is_edit %}
                   <textarea name="text" cols="40" rows="10" class="form-control" required id="id_text">
                     {{ is_edit }}
-                  </textarea> 
-                {% else %} 
+                  </textarea>
+                {% else %}
                   <textarea name="text" cols="40" rows="10" class="form-control" required id="id_text">
                   </textarea>
-                {% endif %}              
+                {% endif %}
                 <small id="id_text-help" class="form-text text-muted">
                   Текст нового поста
-                </small>                  
-              </div>           
+                </small>
+              </div>
               <div class="form-group row my-3 p-3">
                 <label for="id_group">
-                  Группа                 
+                  Группа
                 </label>
                 {{ form.group }}
                 <small id="id_group-help" class="form-text text-muted">
@@ -57,7 +57,7 @@
                     Добавить запись
                   {% endif %}
                 </button>
-              </div> 
+              </div>
             </form>
           </div>
         </div>

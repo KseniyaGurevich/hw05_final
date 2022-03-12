@@ -1,19 +1,19 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
 {% load thumbnail %}
 {% load user_filters %}
 {% block title %}
-{{ post_user }}  
+{{ post_user }}
 {% endblock %}
 {% block content %}
 <div class="row">
   <aside class="col-12 col-md-3">
     <ul class="list-group list-group-flush">
       <li class="list-group-item">
-        Дата публикации: {{ post_user.pub_date|date:"d E Y" }} 
+        Дата публикации: {{ post_user.pub_date|date:"d E Y" }}
       </li>
-        {% if post_user.group %}   
+        {% if post_user.group %}
           <li class="list-group-item">
-            Группа: {{ post_user.group }} 
+            Группа: {{ post_user.group }}
           </li>
         {% endif %}
               <li class="list-group-item">
@@ -34,10 +34,10 @@
             {% if post_user.group %}
               <li class="list-group-item">
                 <a href="{% url 'posts:group_list' post_user.group.slug %}">
-                  Все записи группы 
+                  Все записи группы
                 </a>
-              </li> 
-            {% endif%} 
+              </li>
+            {% endif%}
             {% if request.user.username == post_user.author.username %}
             <li class="list-group-item">
               <a href="{% url 'posts:post_edit' post_user.id %}">
@@ -59,9 +59,9 @@
             <h5 class="card-header">Добавить комментарий:</h5>
             <div class="card-body">
               <form method="post" action="{% url 'posts:add_comment' post_user.id %}">
-                {% csrf_token %}      
+                {% csrf_token %}
                 <div class="form-group mb-2">
-                  {{ form_comments.text|addclass:"form-control" }} 
+                  {{ form_comments.text|addclass:"form-control" }}
                 </div>
                 <button type="submit" class="btn btn-primary">Отправить</button>
               </form>
@@ -81,7 +81,7 @@
                 </p>
               </div>
             </div>
-        {% endfor %}     
+        {% endfor %}
         </article>
       </div>
 {% endblock %}

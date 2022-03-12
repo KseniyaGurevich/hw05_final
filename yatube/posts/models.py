@@ -1,6 +1,6 @@
-from django.db import models
+from core.models import CreateModel, PubDateModel
 from django.contrib.auth import get_user_model
-from core.models import PubDateModel, CreateModel
+from django.db import models
 from django.db.models.constraints import UniqueConstraint
 
 User = get_user_model()

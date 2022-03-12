@@ -1,6 +1,7 @@
-from django.test import TestCase, Client
-from django.contrib.auth import get_user_model
 from http import HTTPStatus
+
+from django.contrib.auth import get_user_model
+from django.test import Client, TestCase
 
 User = get_user_model()
 

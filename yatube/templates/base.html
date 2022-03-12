@@ -10,21 +10,21 @@
         <link rel="icon" type="image/png" sizes="16x16" href="{% static 'img/fav/favicon-16x16.png' %}">
         <meta name="msapplication-TileColor" content="#000">
         <meta name="theme-color" content="#ffffff">
-        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">  
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
         <title>
         {% block title %}
           Пусто
         {% endblock %}
-        </title>               
+        </title>
     </head>
     <body>
         <header>
             {% include 'includes/header.html' %}
-        </header>       
-        <main> 
+        </header>
+        <main>
           <div class="container">
           <br>
-          {% block content %}      
+          {% block content %}
             Пусто!
           {% endblock %}
           </div>
@@ -34,7 +34,3 @@
         </footer>
     </body>
 </html>
-
-
-
-

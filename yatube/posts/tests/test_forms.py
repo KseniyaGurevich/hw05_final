@@ -1,13 +1,14 @@
-from posts.forms import PostForm, CommentForm
-from django.test import Client, TestCase, override_settings
-from posts.models import Post, Group, Comment, Follow
-from django.contrib.auth import get_user_model
-from django.urls import reverse
-from http import HTTPStatus
-import tempfile
 import shutil
-from django.core.files.uploadedfile import SimpleUploadedFile
+import tempfile
+from http import HTTPStatus
+
 from django.conf import settings
+from django.contrib.auth import get_user_model
+from django.core.files.uploadedfile import SimpleUploadedFile
+from django.test import Client, TestCase, override_settings
+from django.urls import reverse
+from posts.forms import CommentForm, PostForm
+from posts.models import Comment, Follow, Group, Post
 
 User = get_user_model()
 TEMP_MEDIA_ROOT = tempfile.mkdtemp(dir=settings.BASE_DIR)
@@ -61,22 +62,22 @@ class PostCreateFormTests(TestCase):
         post_args = cls.post.id
         cls.index_url = ('posts:index', 'posts/index.html', None)
         cls.group_list_url = (
-            'posts:group_list', 'posts/group_list.html', (cls.group.slug)
+            'posts:group_list', 'posts/group_list.html', cls.group.slug
         )
         cls.profile_url = (
-            'posts:profile', 'posts/profile.html', (cls.user.username)
+            'posts:profile', 'posts/profile.html', cls.user.username
         )
         cls.post_detail_url = (
-            'posts:post_detail', 'posts/post_detail.html', (post_args)
+            'posts:post_detail', 'posts/post_detail.html', post_args
         )
         cls.create_post_url = (
             'posts:post_create', 'posts/create_post.html', None
         )
         cls.edit_post_url = (
-            'posts:post_edit', 'posts/create_post.html', (post_args)
+            'posts:post_edit', 'posts/create_post.html', post_args
         )
         cls.add_comment_url = (
-            'posts:add_comment', 'posts/post_detail.html', (post_args)
+            'posts:add_comment', 'posts/post_detail.html', post_args
         )
 
     @classmethod
@@ -257,7 +258,7 @@ class PostCreateFormTests(TestCase):
             count(),
             0
         )
-    
+
     def test_cache_index(self):
         """Данные сохраняются в кэше"""
         response_first = self.authorized_client.get(

@@ -149,3 +149,4 @@ dmypy.json
 yatube/posts/static/
 yatube/media/
 
+.pre-commit-config.yaml
