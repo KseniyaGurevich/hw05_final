@@ -14,8 +14,7 @@
     {% endif %}
   </h1>
   <h3>Всего постов:  {{ posts_count }} </h3>
-  {% if user.is_authenticated %}
-  {% if profile_user != user %}
+
     {% if following %}
     <a
       class="btn btn-lg btn-light"
@@ -23,16 +22,18 @@
     >
       Отписаться
     </a>
-    {% else %}
+    {% elif following == False %}
       <a
         class="btn btn-lg btn-primary"
         href="{% url 'posts:profile_follow' profile_user.username %}" role="button"
       >
         Подписаться
       </a>
+    {% elif following == None %}
+       <p>Это Ваши посты</p>
     {% endif %}
-  {% endif %}
-  {% endif %}
+
+
 </div>
     {% for post in page_obj %}
       <article>
